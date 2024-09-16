@@ -11,6 +11,19 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+
+
+  <script>
+    function updateTheme(event) {
+      if (event.matches)
+        document.body.setAttribute("data-bs-theme", "dark")
+      else
+        document.body.setAttribute("data-bs-theme", "light")
+    }
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    updateTheme(prefersDarkScheme);
+    prefersDarkScheme.addEventListener('change', updateTheme);
+  </script>
 </body>
 
 </html>

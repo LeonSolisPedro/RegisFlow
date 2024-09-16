@@ -1,3 +1,12 @@
-body {
-  background-color: gainsboro;
-}
+$border-radius: 21px !default;
+
+$btn-padding-y:               11px;
+$btn-padding-x:               16px;
+
+
+$btn-font-size:               16.5px;
+
+
+// $btn-border-radius:           15px;
+
+@import "~bootstrap/scss/bootstrap";
