@@ -18,7 +18,7 @@ export default function Register() {
       await axios.post("http://localhost:3000/api/saveUser", { name, email, password })
       resetForm()
     } catch (error) {
-      alert("An error has occured")
+      alert(error.response.data)
     } finally {
       setDisableForm(false);
     }
