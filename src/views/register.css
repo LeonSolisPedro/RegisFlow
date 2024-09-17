@@ -1,0 +1,14 @@
+
+.main-register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.card-maximum-500 {
+  max-width: 500px;
+  width: 100%;
+}
