@@ -1,0 +1,8 @@
+.superbigtableusers {
+  margin: 77px;
+}
+
+
+.superbigtableusers tbody tr:last-child {
+  border: transparent;
+}

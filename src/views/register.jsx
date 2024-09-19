@@ -15,10 +15,10 @@ export default function Register() {
     event.preventDefault();
     setDisableForm(true);
     try {
-      await axios.post("http://localhost:3000/api/saveUser", { name, email, password })
+      await axios.post("/api/register", { name, email, password })
       resetForm()
     } catch (error) {
-      alert(error.response.data)
+      alert(error.response.data.message)
     } finally {
       setDisableForm(false);
     }
