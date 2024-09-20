@@ -11,7 +11,6 @@ export default function Register() {
   const [disableForm, setDisableForm] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setDisableForm(true);
