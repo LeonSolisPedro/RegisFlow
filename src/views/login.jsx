@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import Toast from "../sweetalert";
+
 
 
 
@@ -19,7 +21,7 @@ export default function Login() {
     setDisableForm(true);
     try {
       const response = await axios.post("/api/login", {email,password})
-      alert("Welcome!")
+      Toast.fire({ icon: 'success', title: 'Welcome!'})
       setShowAlert("")
       localStorage.setItem("token", response.data.token);
       axios.defaults.headers.common = {'Authorization': `bearer ${response.data.token}`}

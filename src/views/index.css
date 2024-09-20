@@ -3,6 +3,13 @@
 }
 
 
+@media (max-width: 992px) {
+  .superbigtableusers {
+    margin: 20px;
+  }
+}
+
+
 .superbigtableusers tbody tr:last-child {
   border: transparent;
 }

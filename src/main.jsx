@@ -25,6 +25,10 @@ const router = createBrowserRouter([
 //Bootstrap
 import "./customStyle.scss"
 
+
+//Sweetalert
+import "./sweetalert"
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />

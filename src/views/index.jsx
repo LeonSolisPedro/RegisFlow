@@ -1,7 +1,11 @@
 import axios from "axios"
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLock, faUnlock, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { jwtDecode } from 'jwt-decode'
 import "./index.css"
+import Toast from "../sweetalert";
 
 export async function loader() {
   const users = await axios.get("/api/users")
@@ -25,9 +29,16 @@ export default function Index() {
   const [users, setUsers] = useState(loader);
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const hasSelectedUsers = selectedUserIds.length > 0;
+  const token = localStorage.getItem("token")
+  const name = jwtDecode(token).name;
 
-  //This part of code retrieves all users again
-  //With updated information
+  //Logouts the user
+  const logout = async () => {
+    window.location.href = '/login';
+    axios.defaults.headers.common = {}
+    localStorage.clear()
+    Toast.fire({ icon: 'success', title: 'Logged out Successfully'})
+  }
 
 
   //This part of code handles deletes and updates
@@ -36,27 +47,27 @@ export default function Index() {
     setSelectedUserIds([])
     const newUsers = users.filter(x => !selectedUserIds.includes(x.id));
     setUsers(newUsers)
-    alert("Deleted successfully")
+    Toast.fire({ icon: 'success', title: 'Deleted Successfully'})
   }
   const handleBlocks = async () => {
-    await axios.post("/api/users/block", {ids: selectedUserIds})
-    const newUsers = users.map(x => 
+    await axios.post("/api/users/block", { ids: selectedUserIds })
+    const newUsers = users.map(x =>
       selectedUserIds.includes(x.id)
         ? { ...x, status: "blocked" }
         : x
     );
     setUsers(newUsers)
-    alert("Updated successfully")
+    Toast.fire({ icon: 'success', title: 'Updated Successfully'})
   }
   const handleUnblocks = async () => {
-    await axios.post("/api/users/unblock", {ids: selectedUserIds})
-    const newUsers = users.map(x => 
+    await axios.post("/api/users/unblock", { ids: selectedUserIds })
+    const newUsers = users.map(x =>
       selectedUserIds.includes(x.id)
         ? { ...x, status: "active" }
         : x
     );
     setUsers(newUsers)
-    alert("Updated successfully")
+    Toast.fire({ icon: 'success', title: 'Updated Successfully'})
   }
 
   //This part of code handles selections and unselections
@@ -81,43 +92,65 @@ export default function Index() {
 
   return (
     <div>
-      <p>List of users</p>
-      <div className="d-flex flex-align-center justify-content-center gap-4 flex-wrap">
-        <button className="btn btn-primary" onClick={handleBlocks} disabled={!hasSelectedUsers}>Block</button>
-        <button className="btn btn-primary" onClick={handleUnblocks} disabled={!hasSelectedUsers}>Unblock</button>
-        <button className="btn btn-danger" onClick={handleDeletes} disabled={!hasSelectedUsers}>Delete</button>
-      </div>
-      <div className="superbigtableusers border rounded table-responsive">
-        <table className="table mb-0">
-          <thead className="table-light">
-            <tr>
-              <th>
-                <input type="checkbox"
-                  checked={isAllSelected}
-                  onChange={handleSelectAllChange} />
-              </th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Last login</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
+            RegisFlow
+          </a>
+          <div>
+            <span class="navbar-text">
+              Welcome {name}!
+            </span>
+            <span className="ps-2 navbar-text">
+              <a href="javascript:void(0)" onClick={logout} className="text-decoration-none">Logout</a>
+            </span>
+          </div>
+
+        </div>
+      </nav>
+      <div className="container">
+        <div className="d-flex flex-align-center justify-content-center gap-4 flex-wrap mt-5">
+          <button className="btn btn-primary" onClick={handleBlocks} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faLock} /> Block</button>
+          <button className="btn btn-primary" onClick={handleUnblocks} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faUnlock} /> Unblock</button>
+          <button className="btn btn-danger" onClick={handleDeletes} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faTrash} /> Delete</button>
+        </div>
+        <div className="superbigtableusers border rounded table-responsive">
+          <table className="table mb-0">
+            <thead className="table-light">
+              <tr>
+                <th>
                   <input type="checkbox"
-                    checked={selectedUserIds.includes(user.id)}
-                    onChange={() => handleCheckboxChange(user.id)} />
-                </td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{formatDate(user.lastlogin)}</td>
-                <td>{user.status}</td>
+                    checked={isAllSelected}
+                    onChange={handleSelectAllChange} />
+                </th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Last login</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>
+                    <input type="checkbox"
+                      checked={selectedUserIds.includes(user.id)}
+                      onChange={() => handleCheckboxChange(user.id)} />
+                  </td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{formatDate(user.lastlogin)}</td>
+                  <td>
+                    {user.status === 'blocked'
+                      ? <span className="badge text-bg-danger">Blocked</span>
+                      : <span className="badge text-bg-success">Active</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>

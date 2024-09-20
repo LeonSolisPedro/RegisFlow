@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "~bootstrap": resolve(__dirname, "node_modules/bootstrap")
+      "~bootstrap": resolve(__dirname, "node_modules/bootstrap"),
+      "~sweetalert2": resolve(__dirname, "node_modules/sweetalert2")
     }
   }
 })

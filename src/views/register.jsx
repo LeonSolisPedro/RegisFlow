@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import "./register.css"
+import Toast from "../sweetalert";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ export default function Register() {
       await axios.post("/api/register", { name, email, password })
       resetForm()
     } catch (error) {
-      alert(error.response.data.message)
+      Toast.fire({ icon: "error", title: error.response.data.message})
     } finally {
       setDisableForm(false);
     }
