@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import Toast from "../sweetalert";
-
-
-
+import Logo from "../assets/logo.webp"
 
 export default function Login() {
   const [showAlert, setShowAlert] = useState("");
@@ -13,8 +11,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [disableForm, setDisableForm] = useState(false);
   const navigate = useNavigate();
-
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,11 +29,9 @@ export default function Login() {
     }
   };
 
-
-
   return (
     <div className="main-register">
-      <h1 className="mb-4">Login</h1>
+      <h1 className="mb-4">Login <img src={Logo} className="logo-login" /></h1>
       {showAlert && (
         <div className="alert card-maximum-500 alert-danger alert-dismissible" role="danger">
           <div>{showAlert}</div>
@@ -60,7 +54,5 @@ export default function Login() {
       </div>
       <p className="mt-4">Don't have an account? <Link to={"/register"}>register here</Link></p>
     </div>
-
-
   )
 }

@@ -2,6 +2,11 @@
   margin: 77px;
 }
 
+.logo-navbar-pedrito {
+  margin-top: -3px;
+  margin-right: 7px;
+}
+
 
 @media (max-width: 992px) {
   .superbigtableusers {

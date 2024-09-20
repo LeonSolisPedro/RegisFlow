@@ -24,4 +24,8 @@ $table-cell-padding-x:        1.1rem;
   box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
 }
 
+.logo-login {
+    max-width: 42px;
+}
+
 @import "~bootstrap/scss/bootstrap";

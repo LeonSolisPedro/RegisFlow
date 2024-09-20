@@ -6,6 +6,7 @@ import { faLock, faUnlock, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { jwtDecode } from 'jwt-decode'
 import "./index.css"
 import Toast from "../sweetalert";
+import Logo from "../assets/logo.webp"
 
 export async function loader() {
   const users = await axios.get("/api/users")
@@ -95,7 +96,7 @@ export default function Index() {
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" />
+            <img src={Logo} alt="Logo" width="30" height="30" class="d-inline-block align-text-top logo-navbar-pedrito" />
             RegisFlow
           </a>
           <div>
