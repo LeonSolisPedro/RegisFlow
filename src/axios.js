@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-axios.defaults.baseURL = "http://localhost:3000"
+axios.defaults.baseURL = import.meta.env.VITE_API
 
 
 const token = localStorage.getItem("token")
