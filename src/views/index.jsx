@@ -111,9 +111,9 @@ export default function Index() {
       </nav>
       <div className="container">
         <div className="d-flex flex-align-center justify-content-center gap-4 flex-wrap mt-5">
-          <button className="btn btn-primary" onClick={handleBlocks} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faLock} /> Block</button>
-          <button className="btn btn-primary" onClick={handleUnblocks} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faUnlock} /> Unblock</button>
-          <button className="btn btn-danger" onClick={handleDeletes} disabled={!hasSelectedUsers}><FontAwesomeIcon icon={faTrash} /> Delete</button>
+          <button className="btn btn-primary" onClick={handleBlocks} disabled={!hasSelectedUsers}><FontAwesomeIcon className="me-2" icon={faLock} /> Block</button>
+          <button className="btn btn-primary" onClick={handleUnblocks} disabled={!hasSelectedUsers}><FontAwesomeIcon className="me-2" icon={faUnlock} /> Unblock</button>
+          <button className="btn btn-danger" onClick={handleDeletes} disabled={!hasSelectedUsers}><FontAwesomeIcon className="me-2" icon={faTrash} /> Delete</button>
         </div>
         <div className="superbigtableusers border rounded table-responsive">
           <table className="table mb-0">
